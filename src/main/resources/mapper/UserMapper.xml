@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.messiyang.modelreplace.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.messiyang.modelreplace.model.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="noName" property="noname" jdbcType="VARCHAR" />
+    <result column="password1" property="password1" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, noName, password1
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.messiyang.modelreplace.model.User" >
+    insert into user (id, name, noName, 
+      password1)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{noname,jdbcType=VARCHAR}, 
+      #{password1,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.messiyang.modelreplace.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="noname != null" >
+        noName,
+      </if>
+      <if test="password1 != null" >
+        password1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="noname != null" >
+        #{noname,jdbcType=VARCHAR},
+      </if>
+      <if test="password1 != null" >
+        #{password1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.messiyang.modelreplace.model.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="noname != null" >
+        noName = #{noname,jdbcType=VARCHAR},
+      </if>
+      <if test="password1 != null" >
+        password1 = #{password1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.messiyang.modelreplace.model.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      noName = #{noname,jdbcType=VARCHAR},
+      password1 = #{password1,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />
+    from user
+  </select>
+</mapper>
